@@ -6,6 +6,10 @@ plugins {
 android {
     compileSdk 32
 
+    buildFeatures{
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.weather_app"
         minSdk 24
@@ -29,6 +33,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dependenciesInfo {
+        includeInApk true
+        includeInBundle true
+    }
+    buildToolsVersion '32.0.0'
 }
 
 dependencies {
