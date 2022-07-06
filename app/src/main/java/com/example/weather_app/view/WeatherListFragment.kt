@@ -42,11 +42,19 @@ class WeatherListFragment : Fragment() {
 
     private fun renderData(appState: AppState){
         when(appState){
-            is AppState.Error -> {} //дз
-            is AppState.loading -> {} //дз
+            is AppState.Error -> {
+                Toast.makeText(requireContext(), "Ошибка загрузки данных данных", Toast.LENGTH_LONG).show()
+            }
+            is AppState.loading -> {
+                Toast.makeText(requireContext(), "Выполняется загрузка данных", Toast.LENGTH_LONG).show()
+            }
             is AppState.Success -> {
                 val result = appState.weatherData;
-                Toast.makeText(requireContext(), "РАБОТАЕТ $result", Toast.LENGTH_LONG).show()
+                binding.cityName.text = result.city.name.toString()
+                binding.temperatureValue.text = result.temperature.toString()
+                binding.cityCoordinates.text = "${result.city.lat} : ${result.city.lon}"
+                binding.feelsLikeValue.text = result.feelsLike.toString()
+
             }
         }
 
