@@ -7,9 +7,12 @@ import com.example.weather_app.model.Repository
 import com.example.weather_app.model.RepositoryLocalImpl
 import com.example.weather_app.model.RepositoryRemoteImpl
 import com.example.weather_app.viewmodel.AppState
+import java.lang.IllegalStateException
 
-class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>(),
-                           var repository: Repository): ViewModel() {
+class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()): ViewModel(){
+
+    lateinit var repository: Repository
+
     fun getLiveData(): MutableLiveData<AppState> {
         chooseRepository()
         return liveData
@@ -26,9 +29,12 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
 
     fun sentRequest() {
         liveData.value = AppState.loading
-        liveData.value = AppState.Success(repository.getWeather(37.617299900000035,55.755826))
+        if ((0..3).random() == 1) {
+            liveData.postValue(AppState.Error(throw IllegalStateException("Исключение: IllegalStateException")))
+        } else {
+            liveData.value = AppState.Success(repository.getWeather(37.617299900000035, 55.755826))
+        }
     }
-
     private fun isConnection(): Boolean {
         return false;
     }
