@@ -1,4 +1,4 @@
-package com.example.weather_app.view
+package com.example.weather_app.viewmodel
 
 import android.os.SystemClock.sleep
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ class WeatherListViewModel(val liveData: MutableLiveData<AppState> = MutableLive
         liveData.value = AppState.loading
         Thread {
             sleep(2000L)
-            liveData.value = AppState.Success(Any())
-        }
+            liveData.postValue(AppState.Success(Any()))
+        }.start()
     }
 }
