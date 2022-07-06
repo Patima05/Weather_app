@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">k_2135_2136_2</string>
+    <string name="app_name">Прогноз погоды</string>
+    <string name="city_name">"Москва"</string>
     <string name="temperature_label">Температура</string>
     <string name="feels_like_label">Ощущается как</string>
     <string name="city_coordinates">lt/ln: %s, %s"</string>
     <string name="error">Error</string>
     <string name="reload">Reload</string>
+    <string name="coordinates">lt/ln: 55.755826, 37.617299900000035</string>
+    <string name="temperature">+15</string>
+    <string name="feels_like">-23</string>
 </resources>
