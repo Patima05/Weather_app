@@ -3,15 +3,14 @@ package com.example.weather_app.viewmodel
 import android.os.SystemClock.sleep
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.weather_app.model.Repository
-import com.example.weather_app.model.RepositoryLocalImpl
-import com.example.weather_app.model.RepositoryRemoteImpl
+import com.example.weather_app.model.*
 import com.example.weather_app.viewmodel.AppState
 import java.lang.IllegalStateException
 
 class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = MutableLiveData<AppState>()): ViewModel(){
 
-    lateinit var repository: Repository
+    lateinit var repositoryOne: RepositoryOne
+    lateinit var repositoryMulti: RepositoryMulti
 
     fun getLiveData(): MutableLiveData<AppState> {
         chooseRepository()
@@ -19,24 +18,32 @@ class WeatherListViewModel(private val liveData: MutableLiveData<AppState> = Mut
     }
 
     private fun chooseRepository() {
-        repository = if (isConnection()) {
+        repositoryOne = if (isConnection()) {
             RepositoryRemoteImpl()
         } else {
             RepositoryLocalImpl()
         }
-
+        repositoryMulti = RepositoryLocalImpl()
     }
 
-    fun sentRequest() {
+    fun getWeatherListForRussia(){
+        sentRequest(Location.Russian)
+    }
+
+    fun getWeatherListForWorld(){
+        sentRequest(Location.World)
+    }
+
+    private fun sentRequest(location: Location) {
         liveData.value = AppState.loading
         if ((0..3).random() == 1) {
             try {
-                liveData.postValue(AppState.Error(throw IllegalStateException("Исключение: IllegalStateException")))
+                liveData.postValue(AppState.Error(IllegalStateException("Исключение: IllegalStateException")))
             }catch (e: IllegalStateException){
                 liveData.value = AppState.Error(e)
             }
         } else {
-            liveData.value = AppState.Success(repository.getWeather(37.617299900000035, 55.755826))
+            liveData.value = AppState.SuccessMulti(repositoryMulti.getListWeather(location))
         }
     }
     private fun isConnection(): Boolean {

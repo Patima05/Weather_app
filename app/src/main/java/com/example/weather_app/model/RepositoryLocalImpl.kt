@@ -2,20 +2,18 @@ package com.example.weather_app.model
 
 import android.os.SystemClock
 import com.example.weather_app.domain.Weather
-import com.example.weather_app.viewmodel.AppState
+import com.example.weather_app.domain.getRussianCities
+import com.example.weather_app.domain.getWorldCities
 
-class RepositoryLocalImpl: Repository {
+class RepositoryLocalImpl: RepositoryOne, RepositoryMulti {
     override fun getWeather(lat: Double, lon: Double): Weather {
-        Thread {
-            SystemClock.sleep(200L)
-        }.start()
         return Weather()
     }
 
-    override fun getWeatherList(): List<Weather> {
-        Thread {
-            SystemClock.sleep(200L)
-        }.start()
-        return listOf(Weather())
+    override fun getListWeather(location: Location): List<Weather> {
+        return when(location){
+            Location.Russian -> getRussianCities()
+            Location.World -> getWorldCities()
+        }
     }
 }
