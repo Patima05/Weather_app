@@ -2,9 +2,8 @@ package com.example.weather_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.inputmethod.InputBinding
 import com.example.weather_app.databinding.ActivityMainBinding
-import com.example.weather_app.view.WeatherListFragment
+import com.example.weather_app.view.weathelist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
 
