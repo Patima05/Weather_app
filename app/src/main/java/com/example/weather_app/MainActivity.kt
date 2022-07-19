@@ -1,3 +1,4 @@
+
 package com.example.weather_app
 
 import androidx.appcompat.app.AppCompatActivity
@@ -7,19 +8,19 @@ import com.example.weather_app.view.weathelist.WeatherListFragment
 
 class MainActivity : AppCompatActivity() {
 
-        lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainBinding
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            binding = ActivityMainBinding.inflate(layoutInflater)
-            setContentView(binding.root)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            if (savedInstanceState == null){
-                supportFragmentManager.
-                        beginTransaction().
-                        replace(R.id.container, WeatherListFragment.newInstance()).
-                        commit()
+        if (savedInstanceState == null){
+            supportFragmentManager.
+            beginTransaction().
+            replace(R.id.container, WeatherListFragment.newInstance()).
+            commit()
 
-            }
+        }
     }
 }
