@@ -32,7 +32,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentWeatherListBinding.inflate(inflater)
         return binding.root
     }
@@ -60,10 +60,10 @@ class WeatherListFragment : Fragment(), OnItemClick {
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Error -> {
-                binding.root.showErrorMessage(R.string.data_error,R.string.try_again) { _ ->
-                    if (isRussian){
+                binding.root.showErrorMessage(R.string.data_error, R.string.try_again) { _ ->
+                    if (isRussian) {
                         viewModel.getWeatherListForWorld()
-                    }else{
+                    } else {
                         viewModel.getWeatherListForRussia()
                     }
                 }
@@ -78,6 +78,7 @@ class WeatherListFragment : Fragment(), OnItemClick {
                 binding.fragmentRecyclerView.adapter =
                     WeatherListAdapter(appState.weatherListData, this)
             }
+
         }
     }
 
@@ -92,6 +93,6 @@ private fun View.showLoadingMessage(stringRef: Int) {
     Snackbar.make(this, stringRef, Snackbar.LENGTH_SHORT).show()
 }
 
-private fun View.showErrorMessage(stringRef: Int, stringBlockRef: Int, block:(v:View)->Unit) {
+private fun View.showErrorMessage(stringRef: Int, stringBlockRef: Int, block: (v: View) -> Unit) {
     Snackbar.make(this, stringRef, Snackbar.LENGTH_SHORT).setAction(stringBlockRef, block).show()
 }
